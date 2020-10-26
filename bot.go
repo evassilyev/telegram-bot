@@ -42,3 +42,13 @@ func (b *Bot) ReplyToMessage(msg *tgbotapi.Message, text string) error {
 	_, err := b.bot.Send(rm)
 	return err
 }
+
+func (b *Bot) GetFileLink(id string) (link string, err error) {
+	var file tgbotapi.File
+	file, err = b.bot.GetFile(tgbotapi.FileConfig{id})
+	if err != nil {
+		return
+	}
+	link = file.Link(b.token)
+	return
+}
